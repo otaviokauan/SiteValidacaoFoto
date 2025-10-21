@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador de Assinaturas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Validador de Assinaturas</h1>
+            <p>Sistema de registro e validação de assinaturas digitais</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="save">Enviar Assinatura</button>
+            <button class="tab-button" data-tab="validate">Validar Assinatura</button>
+        </div>
+
+        <!-- Tab: Enviar Assinatura -->
+        <div class="tab-content active" id="save-tab">
+            <div class="form-section">
+                <label for="save-name">Nome Completo:</label>
+                <input type="text" id="save-name" placeholder="Digite seu nome completo">
+            </div>
+
+            <div class="upload-section">
+                <h3>Envie sua assinatura:</h3>
+                <div class="upload-area" id="upload-area">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <p>Clique ou arraste uma imagem da assinatura</p>
+                    <span class="file-types">PNG, JPG ou JPEG</span>
+                </div>
+                <input type="file" id="signature-upload" accept="image/png,image/jpeg,image/jpg" style="display: none;">
+                <div class="preview-container" id="preview-container" style="display: none;">
+                    <img id="signature-preview" alt="Preview da assinatura">
+                </div>
+            </div>
+
+            <button id="save-signature-btn" class="btn-primary">Salvar Assinatura</button>
+            <div id="save-message" class="message"></div>
+        </div>
+
+        <!-- Tab: Validar Assinatura -->
+        <div class="tab-content" id="validate-tab">
+            <div class="form-section">
+                <label for="validate-name">Nome para Validar:</label>
+                <div class="autocomplete-container">
+                    <input type="text" id="validate-name" placeholder="Digite o nome para buscar" autocomplete="off">
+                    <div id="autocomplete-list" class="autocomplete-list"></div>
+                </div>
+            </div>
+
+            <div id="validation-area" class="validation-area hidden">
+                <div class="upload-section">
+                    <h3>Envie a nova assinatura para comparar:</h3>
+                    <div class="upload-area" id="validate-upload-area">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <p>Clique ou arraste a assinatura para validar</p>
+                        <span class="file-types">PNG, JPG ou JPEG</span>
+                    </div>
+                    <input type="file" id="validate-signature-upload" accept="image/png,image/jpeg,image/jpg" style="display: none;">
+                </div>
+
+                <div class="comparison-container">
+                    <div class="signature-box">
+                        <h3>Assinatura Registrada</h3>
+                        <canvas id="reference-canvas"></canvas>
+                    </div>
+
+                    <div class="signature-box">
+                        <h3>Nova Assinatura</h3>
+                        <canvas id="validate-canvas"></canvas>
+                    </div>
+                </div>
+
+                <div class="validation-result" id="validation-result" style="display: none;">
+                    <div class="similarity-score" id="similarity-score"></div>
+                    <p id="validation-message"></p>
+                </div>
+            </div>
+
+            <div id="validate-message" class="message"></div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
